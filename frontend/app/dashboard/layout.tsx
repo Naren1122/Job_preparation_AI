@@ -3,8 +3,9 @@
 import { useEffect } from "react";
 import { useRouter } from "next/navigation";
 import { useAppDispatch, useAppSelector } from "@/store/hooks";
-import { getMe } from "@/store/slices/authSlice";
+import { getMe, logout } from "@/store/slices/authSlice";
 import { ProtectedRoute } from "@/components/auth/ProtectedRoute";
+import Link from "next/link";
 
 export default function DashboardLayout({
   children,
@@ -13,7 +14,9 @@ export default function DashboardLayout({
 }) {
   const router = useRouter();
   const dispatch = useAppDispatch();
-  const { isAuthenticated, isLoading } = useAppSelector((state) => state.auth);
+  const { isAuthenticated, isLoading, user } = useAppSelector(
+    (state) => state.auth,
+  );
 
   useEffect(() => {
     // Check if user is authenticated on mount
@@ -21,6 +24,11 @@ export default function DashboardLayout({
       dispatch(getMe());
     }
   }, [dispatch, isAuthenticated, isLoading]);
+
+  const handleLogout = async () => {
+    await dispatch(logout());
+    router.push("/login");
+  };
 
   return (
     <ProtectedRoute>
@@ -32,29 +40,29 @@ export default function DashboardLayout({
                 AI Job - Interview Prep
               </h1>
               <nav className="flex items-center gap-4">
-                <a
+                <Link
                   href="/dashboard"
                   className="text-gray-600 hover:text-gray-900"
                 >
                   Dashboard
-                </a>
-                <a
-                  href="/interview/new"
+                </Link>
+                <Link
+                  href="/dashboard/generate"
                   className="text-gray-600 hover:text-gray-900"
                 >
                   New Report
-                </a>
-                <a
-                  href="/reports"
+                </Link>
+                <Link
+                  href="/dashboard/reports"
                   className="text-gray-600 hover:text-gray-900"
                 >
                   My Reports
-                </a>
+                </Link>
+                <span className="text-gray-400">|</span>
+                <span className="text-sm text-gray-600">{user?.username}</span>
                 <button
-                  onClick={() => {
-                    // Will add logout later
-                  }}
-                  className="text-gray-600 hover:text-gray-900"
+                  onClick={handleLogout}
+                  className="text-red-600 hover:text-red-700"
                 >
                   Logout
                 </button>

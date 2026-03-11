@@ -2,10 +2,8 @@
 
 import { useEffect, useState } from "react";
 import { useAppDispatch, useAppSelector } from "@/store/hooks";
-import {
-  getReportById,
-  generateResumePdf,
-} from "@/store/slices/interviewSlice";
+import { getReportById } from "@/store/slices/interviewSlice";
+import { interviewService } from "@/services/interview.service";
 import { useRouter, useParams } from "next/navigation";
 import {
   Card,
@@ -50,7 +48,8 @@ export default function ReportDetailPage() {
   const handleDownloadPdf = async () => {
     try {
       setPdfLoading(true);
-      const blob = await dispatch(generateResumePdf(reportId)).unwrap();
+      // Call API directly to avoid Redux non-serializable error with Blob
+      const blob = await interviewService.generateResumePdf(reportId);
 
       // Create a download link
       const url = window.URL.createObjectURL(blob);

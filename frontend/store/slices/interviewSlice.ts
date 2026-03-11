@@ -80,6 +80,22 @@ export const generateResumePdf = createAsyncThunk<Blob, string>(
   },
 );
 
+// Async thunk for deleting a report
+export const deleteReport = createAsyncThunk<string, string>(
+  "interview/deleteReport",
+  async (reportId, { rejectWithValue }) => {
+    try {
+      await interviewService.deleteReport(reportId);
+      return reportId;
+    } catch (error: unknown) {
+      const err = error as { response?: { data?: { message?: string } } };
+      return rejectWithValue(
+        err.response?.data?.message || "Failed to delete report",
+      );
+    }
+  },
+);
+
 const interviewSlice = createSlice({
   name: "interview",
   initialState,
@@ -141,6 +157,29 @@ const interviewSlice = createSlice({
         state.isLoading = false;
       })
       .addCase(generateResumePdf.rejected, (state, action) => {
+        state.isLoading = false;
+        state.error = action.payload as string;
+      })
+      // Delete Report
+      .addCase(deleteReport.pending, (state) => {
+        state.isLoading = true;
+        state.error = null;
+      })
+      .addCase(deleteReport.fulfilled, (state, action) => {
+        state.isLoading = false;
+        // Remove the deleted report from both arrays
+        state.reportSummaries = state.reportSummaries.filter(
+          (report) => report._id !== action.payload,
+        );
+        state.reports = state.reports.filter(
+          (report) => report._id !== action.payload,
+        );
+        // Clear current report if it was deleted
+        if (state.currentReport?._id === action.payload) {
+          state.currentReport = null;
+        }
+      })
+      .addCase(deleteReport.rejected, (state, action) => {
         state.isLoading = false;
         state.error = action.payload as string;
       });

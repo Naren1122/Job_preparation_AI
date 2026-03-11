@@ -50,4 +50,15 @@ interviewRouter.post(
   interviewController.generateResumePdfController,
 );
 
+/**
+ * @route DELETE /api/interview/:interviewId
+ * @description delete an interview report by ID.
+ * @access private
+ */
+interviewRouter.delete(
+  "/:interviewId",
+  authUser,
+  interviewController.deleteInterviewReportController,
+);
+
 export default interviewRouter;

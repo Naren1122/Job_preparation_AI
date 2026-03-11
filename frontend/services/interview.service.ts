@@ -61,4 +61,12 @@ export const interviewService = {
     );
     return response.data;
   },
+
+  // Delete an interview report by ID
+  async deleteReport(reportId: string): Promise<{ message: string }> {
+    const response = await api.delete<{ message: string }>(
+      `/interview/${reportId}`,
+    );
+    return response.data;
+  },
 };
