@@ -2,18 +2,22 @@ import userModel from "../models/user.models.js";
 import tokenBlacklistModel from "../models/blacklist.model.js";
 import bcryptjs from "bcryptjs";
 import jwt from "jsonwebtoken";
+import { registerSchema, loginSchema } from "../validations/auth.validation.js";
 
 async function register(req, res) {
   try {
     const { username, email, password } = req.body;
 
-    if (!username || !email || !password) {
-      return res.status(400).json({ message: "Please fill all the fields" });
+    // Validate input with Zod
+    const validationResult = registerSchema.safeParse(req.body);
+
+    if (!validationResult.success) {
+      const errors = validationResult.error.errors.map((err) => err.message);
+      return res.status(400).json({ message: errors[0], errors });
     }
 
-    const isUserAlreadyExist = await userModel.findOne({
-      $or: [{ email }, { username }],
-    });
+    // Check if user already exists by email (username is no longer unique)
+    const isUserAlreadyExist = await userModel.findOne({ email });
 
     if (isUserAlreadyExist) {
       return res.status(400).json({ message: "User already exists" });
@@ -53,8 +57,12 @@ async function login(req, res) {
   try {
     const { email, password } = req.body;
 
-    if (!email || !password) {
-      return res.status(400).json({ message: "Please fill all the fields" });
+    // Validate input with Zod
+    const validationResult = loginSchema.safeParse(req.body);
+
+    if (!validationResult.success) {
+      const errors = validationResult.error.errors.map((err) => err.message);
+      return res.status(400).json({ message: errors[0], errors });
     }
 
     const user = await userModel.findOne({ email });
