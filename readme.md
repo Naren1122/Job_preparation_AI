@@ -4,6 +4,22 @@ A production-ready Gen AI application designed to help users bridge the gap betw
 
 ---
 
+## 📸 Screenshots
+
+![Landing Page](./docs/homepage.png)
+![Dashboard](./docs/Dashboard.png)
+![Auth Pages](./docs/auth%20page.png)
+
+---
+
+## 🎬 Demo Video
+
+Watch the full demo on YouTube: [AI Prep Demo](https://youtu.be/Trv46aEX8RQ)
+
+Or open the interactive demo page: [View Demo](./docs/demo.html)
+
+---
+
 ## 🚀 Key Features
 
 ### 🔐 Secure Authentication & Authorization
@@ -45,8 +61,8 @@ A production-ready Gen AI application designed to help users bridge the gap betw
 
 | Technology          | Purpose                                                   |
 | ------------------- | --------------------------------------------------------- |
-| **Next.js 14**      | React framework with App Router                           |
-| **React 18**        | UI library for building user interfaces                   |
+| **Next.js 16**      | React framework with App Router                           |
+| **React 19**        | UI library for building user interfaces                   |
 | **TypeScript**      | Type-safe JavaScript development                          |
 | **Redux Toolkit**   | State management for authentication and application state |
 | **shadcn/ui**       | Beautiful, accessible UI components built with Radix UI   |
@@ -289,22 +305,6 @@ npm run dev
 ## 📄 License
 
 This project is licensed under the MIT License.
-
----
-
-## 📸 Screenshots
-
-![Landing Page](./docs/homepage.png)
-![Dashboard](./docs/Dashboard.png)
-![Auth Pages](./docs/auth%20page.png)
-
----
-
-## 🎬 Demo Video
-
-Watch the full demo on YouTube: [AI Prep Demo](https://youtu.be/Trv46aEX8RQ)
-
-Or open the interactive demo page: [View Demo](./docs/demo.html)
 
 ---
 
