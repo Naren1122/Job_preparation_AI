@@ -151,7 +151,7 @@ export default function DashboardLayout({
                     <DropdownMenuSeparator className="bg-white/10" />
                     <DropdownMenuItem
                       onClick={handleLogout}
-                      className="flex items-center gap-2.5 px-3 py-2.5 cursor-pointer text-rose-400 hover:text-rose-300 hover:bg-white/40 focus:bg-white/10"
+                      className="flex items-center gap-2.5 px-3 py-2.5 cursor-pointer text-rose-400 hover:text-rose-300 "
                     >
                       <LogOut className="h-4 w-4" />
                       Sign Out

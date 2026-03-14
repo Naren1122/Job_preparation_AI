@@ -20,15 +20,10 @@ import {
   Calendar,
   Loader2,
   Sparkles,
-  Target,
   Zap,
   ArrowRight,
-  Brain,
-  BarChart3,
   Clock,
   Award,
-  ChevronRight,
-  Users,
 } from "lucide-react";
 import {
   AlertDialog,
@@ -66,14 +61,6 @@ export default function DashboardPage() {
       setDeletingId(null);
     }
   };
-
-  const averageScore =
-    reportSummaries.length > 0
-      ? Math.round(
-          reportSummaries.reduce((acc, r) => acc + r.matchScore, 0) /
-            reportSummaries.length,
-        )
-      : 0;
 
   const thisWeekCount = reportSummaries.filter((r) => {
     const createdAt = new Date(r.createdAt);
@@ -164,7 +151,7 @@ export default function DashboardPage() {
       </section>
 
       {/* Enhanced Bento-style Stats Grid */}
-      <div className="grid gap-5 grid-cols-1 sm:grid-cols-2 lg:grid-cols-4">
+      <div className="grid gap-5 grid-cols-1 sm:grid-cols-2 lg:grid-cols-3">
         <EnhancedStatCard
           title="Total Reports"
           value={reportSummaries.length}
@@ -174,22 +161,6 @@ export default function DashboardPage() {
           trendUp={true}
           color="purple"
           delay={0}
-        />
-        <EnhancedStatCard
-          title="Average Match"
-          value={`${averageScore}%`}
-          icon={<Target className="h-5 w-5" />}
-          subtitle="Skill alignment"
-          trend={
-            averageScore >= 70
-              ? "Excellent"
-              : averageScore >= 40
-                ? "Good"
-                : "Needs work"
-          }
-          trendUp={averageScore >= 70}
-          color="cyan"
-          delay={1}
         />
         <EnhancedStatCard
           title="This Week"
@@ -214,34 +185,6 @@ export default function DashboardPage() {
           trendUp={reportSummaries.length > 0}
           color="violet"
           delay={3}
-        />
-      </div>
-
-      {/* Quick Actions Row */}
-      <div className="grid grid-cols-1 sm:grid-cols-3 gap-4">
-        <QuickActionCard
-          icon={<Brain className="h-6 w-6" />}
-          title="Analyze Resume"
-          description="Get AI insights on your resume"
-          href="/dashboard/generate"
-          gradient="from-cyan-500 to-blue-600"
-          delay={0}
-        />
-        <QuickActionCard
-          icon={<BarChart3 className="h-6 w-6" />}
-          title="View Analytics"
-          description="Track your progress over time"
-          href="/dashboard/reports"
-          gradient="from-blue-500 to-cyan-600"
-          delay={1}
-        />
-        <QuickActionCard
-          icon={<Users className="h-6 w-6" />}
-          title="Interview Tips"
-          description="Prepare for common questions"
-          href="#"
-          gradient="from-teal-500 to-cyan-600"
-          delay={2}
         />
       </div>
 
@@ -311,11 +254,6 @@ export default function DashboardPage() {
                               )}
                             </CardDescription>
                           </div>
-                          <div
-                            className={`px-4 py-2 rounded-xl text-sm font-bold ring-1 ${colors.bg} ${colors.text} ${colors.ring}`}
-                          >
-                            {report.matchScore}%
-                          </div>
                         </div>
 
                         {/* Enhanced Progress Bar */}
@@ -330,14 +268,10 @@ export default function DashboardPage() {
                         </div>
 
                         {/* Score label */}
-                        <div className="flex justify-between mt-2 text-xs">
-                          <span className="text-white/60">Match Score</span>
-                          <span className={`font-medium ${colors.text}`}>
-                            {report.matchScore >= 70
-                              ? "Excellent"
-                              : report.matchScore >= 40
-                                ? "Good"
-                                : "Needs Improvement"}
+                        <div className="mt-2 text-xs">
+                          <span className="text-white/60">Match Score:</span>
+                          <span className="font-medium text-lg text-emerald-400">
+                            {report.matchScore}%
                           </span>
                         </div>
                       </div>
@@ -345,7 +279,7 @@ export default function DashboardPage() {
                   </Link>
 
                   {/* Delete Trigger */}
-                  <div className="absolute top-3 right-3 opacity-0 group-hover:opacity-100 transition-all duration-200 translate-y-[-4px] group-hover:translate-y-0">
+                  <div className="absolute top-3 right-3">
                     <AlertDialog
                       open={openDialogId === report._id}
                       onOpenChange={(o) => !o && setOpenDialogId(null)}
@@ -379,7 +313,7 @@ export default function DashboardPage() {
                           </AlertDialogDescription>
                         </AlertDialogHeader>
                         <AlertDialogFooter>
-                          <AlertDialogCancel className="bg-white/5 border-white/10 text-white hover:bg-white/10 hover:border-white/20">
+                          <AlertDialogCancel className="bg-green-500 border-white/10 text-white hover:bg-white/10 hover:border-white/20">
                             Cancel
                           </AlertDialogCancel>
                           <AlertDialogAction
@@ -531,50 +465,5 @@ function EnhancedStatCard({
         />
       </CardContent>
     </Card>
-  );
-}
-
-// Quick Action Card Component
-interface QuickActionCardProps {
-  icon: React.ReactNode;
-  title: string;
-  description: string;
-  href: string;
-  gradient: string;
-  delay: number;
-}
-
-function QuickActionCard({
-  icon,
-  title,
-  description,
-  href,
-  gradient,
-  delay,
-}: QuickActionCardProps) {
-  return (
-    <Link href={href} className="group block">
-      <Card className="bg-white/5 border-white/10 hover:border-cyan-500/50 overflow-hidden relative transition-all duration-300 hover:-translate-y-1 hover:shadow-xl">
-        {/* Gradient background on hover */}
-        <div
-          className={`absolute inset-0 bg-gradient-to-br ${gradient} opacity-0 group-hover:opacity-10 transition-opacity duration-300`}
-        />
-
-        <CardContent className="relative p-5 flex items-center gap-4">
-          <div
-            className={`w-12 h-12 rounded-xl bg-gradient-to-br ${gradient} flex items-center justify-center text-white shadow-lg group-hover:scale-110 transition-transform duration-300`}
-          >
-            {icon}
-          </div>
-          <div className="flex-1 min-w-0">
-            <h4 className="font-semibold text-white group-hover:text-cyan-300 transition-colors">
-              {title}
-            </h4>
-            <p className="text-white/60 text-sm truncate">{description}</p>
-          </div>
-          <ChevronRight className="h-5 w-5 text-white/40 group-hover:text-cyan-400 group-hover:translate-x-1 transition-all" />
-        </CardContent>
-      </Card>
-    </Link>
   );
 }
