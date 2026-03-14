@@ -1,9 +1,9 @@
 "use client";
 
-import { useEffect, useState } from "react";
+import { useState, useEffect, useRef } from "react";
 import { useRouter } from "next/navigation";
 import { useAppDispatch, useAppSelector } from "@/store/hooks";
-import { getMe, logout } from "@/store/slices/authSlice";
+import { logout, getMe } from "@/store/slices/authSlice";
 import { ProtectedRoute } from "@/components/auth/ProtectedRoute";
 import Link from "next/link";
 import Image from "next/image";
@@ -35,16 +35,18 @@ export default function DashboardLayout({
 }) {
   const router = useRouter();
   const dispatch = useAppDispatch();
-  const { isAuthenticated, isLoading, user } = useAppSelector(
-    (state) => state.auth,
-  );
+  const { user } = useAppSelector((state) => state.auth);
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
+  const hasCalledGetMe = useRef(false);
 
+  // Sync Redux state with cookie on mount
   useEffect(() => {
-    if (!isAuthenticated && !isLoading) {
+    // Only call getMe once per page load
+    if (!hasCalledGetMe.current) {
+      hasCalledGetMe.current = true;
       dispatch(getMe());
     }
-  }, [dispatch, isAuthenticated, isLoading]);
+  }, [dispatch]);
 
   const handleLogout = async () => {
     await dispatch(logout());

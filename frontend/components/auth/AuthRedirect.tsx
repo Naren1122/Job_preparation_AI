@@ -4,11 +4,6 @@ import { useEffect } from "react";
 import { useRouter } from "next/navigation";
 import { useAppSelector } from "@/store/hooks";
 
-// Custom hook to check for token in localStorage
-function useHasToken() {
-  return typeof window !== "undefined" && !!localStorage.getItem("token");
-}
-
 interface AuthRedirectProps {
   children: React.ReactNode;
 }
@@ -16,16 +11,15 @@ interface AuthRedirectProps {
 export function AuthRedirect({ children }: AuthRedirectProps) {
   const router = useRouter();
   const { isAuthenticated, isLoading } = useAppSelector((state) => state.auth);
-  const hasToken = useHasToken();
 
   useEffect(() => {
-    // Redirect if authenticated (from Redux or localStorage token)
-    if (!isLoading && (isAuthenticated || hasToken)) {
+    // Redirect if authenticated (from Redux state which is synced with backend cookie)
+    if (!isLoading && isAuthenticated) {
       router.push("/dashboard");
     }
-  }, [isAuthenticated, isLoading, hasToken, router]);
+  }, [isAuthenticated, isLoading, router]);
 
-  if (isLoading || isAuthenticated || hasToken) {
+  if (isLoading || isAuthenticated) {
     return null;
   }
 

@@ -19,7 +19,7 @@ export const interviewService = {
     const response = await api.post<{
       message: string;
       interviewReport: InterviewReport;
-    }>("/interview/", formData, {
+    }>("/api/interview/", formData, {
       headers: {
         "Content-Type": "multipart/form-data",
       },
@@ -35,7 +35,7 @@ export const interviewService = {
     const response = await api.get<{
       message: string;
       interviewReports: InterviewReportSummary[];
-    }>("/interview/");
+    }>("/api/interview/");
     return response.data;
   },
 
@@ -46,14 +46,14 @@ export const interviewService = {
     const response = await api.get<{
       message: string;
       interviewReport: InterviewReport;
-    }>(`/interview/report/${id}`);
+    }>(`/api/interview/report/${id}`);
     return response.data;
   },
 
   // Generate and download a resume PDF
   async generateResumePdf(reportId: string): Promise<Blob> {
     const response = await api.post(
-      `/interview/resume/pdf/${reportId}`,
+      `/api/interview/resume/pdf/${reportId}`,
       {},
       {
         responseType: "blob",
@@ -65,7 +65,7 @@ export const interviewService = {
   // Delete an interview report by ID
   async deleteReport(reportId: string): Promise<{ message: string }> {
     const response = await api.delete<{ message: string }>(
-      `/interview/${reportId}`,
+      `/api/interview/${reportId}`,
     );
     return response.data;
   },

@@ -4,17 +4,12 @@ import { useEffect } from "react";
 
 export function AuthInitializer() {
   useEffect(() => {
-    // Check if token exists in localStorage and sync to cookie for middleware
+    // Clean up any stale localStorage token from previous sessions
+    // The only valid token now is the HTTP-only cookie set by the backend
     const token = localStorage.getItem("token");
     if (token) {
-      // Set cookie if not already set
-      const cookieExists = document.cookie
-        .split(";")
-        .some((c) => c.trim().startsWith("token="));
-
-      if (!cookieExists) {
-        document.cookie = `token=${token}; path=/; max-age=${24 * 60 * 60}; SameSite=Lax`;
-      }
+      // Clear stale localStorage token - it should only come from backend cookie
+      localStorage.removeItem("token");
     }
   }, []);
 

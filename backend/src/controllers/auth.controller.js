@@ -37,10 +37,11 @@ async function register(req, res) {
       { expiresIn: "1d" },
     );
 
+    // Use "lax" for localhost development
     res.cookie("token", token, {
       httpOnly: true,
-      secure: false, // Set to true in production with HTTPS
-      sameSite: "none", // Required for cross-origin cookies
+      secure: false,
+      sameSite: "lax",
       maxAge: 24 * 60 * 60 * 1000, // 1 day
       path: "/",
     });
@@ -90,10 +91,11 @@ async function login(req, res) {
       { expiresIn: "1d" },
     );
 
+    // Use "lax" for localhost development
     res.cookie("token", token, {
       httpOnly: true,
-      secure: false, // Set to true in production with HTTPS
-      sameSite: "none", // Required for cross-origin cookies
+      secure: false,
+      sameSite: "lax",
       maxAge: 24 * 60 * 60 * 1000, // 1 day
       path: "/",
     });
@@ -119,10 +121,12 @@ async function logout(req, res) {
   if (token) {
     await tokenBlacklistModel.create({ token });
   }
+
+  // Use "lax" for localhost development
   res.clearCookie("token", {
     httpOnly: true,
     secure: false,
-    sameSite: "none",
+    sameSite: "lax",
     path: "/",
   });
 
