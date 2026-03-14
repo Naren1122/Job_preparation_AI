@@ -1,0 +1,17 @@
+services:
+  - type: web
+    name: ai-job-prep-backend
+    env: node
+    region: oregon
+    rootDir: backend
+    buildCommand: npm install
+    startCommand: npm start
+    envVars:
+      - key: MONGO_URI
+        value: mongodb+srv://Naren_Maharjan:NNSfamily0978@cluster0.jyncoyw.mongodb.net/job
+      - key: PORT
+        value: 5000
+      - key: JWT_SECRET
+        value: VPVwZH30HAC5goYIfs/PpLOcF8j4KDlRtLWFo4WBNMc
+      - key: GEMINI_API_KEY
+        value: AIzaSyBDPI_2sZ0j0O70BEm-3IiR1wkAPU5VznY
