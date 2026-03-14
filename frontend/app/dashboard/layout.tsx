@@ -7,6 +7,7 @@ import { getMe, logout } from "@/store/slices/authSlice";
 import { ProtectedRoute } from "@/components/auth/ProtectedRoute";
 import Link from "next/link";
 import Image from "next/image";
+import { toast } from "sonner";
 import {
   LayoutDashboard,
   FilePlus,
@@ -47,6 +48,7 @@ export default function DashboardLayout({
 
   const handleLogout = async () => {
     await dispatch(logout());
+    toast.success("User Log Out Successfully");
     router.push("/login");
   };
 

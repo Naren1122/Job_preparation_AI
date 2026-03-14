@@ -20,7 +20,7 @@ export interface RegisterRequest {
 export interface AuthResponse {
   message: string;
   user: User;
-  // Token is stored in cookies, not in response body
+  token?: string; // Token can be in response body for localStorage
 }
 
 export interface AuthState {

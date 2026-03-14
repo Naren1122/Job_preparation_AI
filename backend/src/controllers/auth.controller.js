@@ -37,10 +37,17 @@ async function register(req, res) {
       { expiresIn: "1d" },
     );
 
-    res.cookie("token", token);
+    res.cookie("token", token, {
+      httpOnly: true,
+      secure: false, // Set to true in production with HTTPS
+      sameSite: "none", // Required for cross-origin cookies
+      maxAge: 24 * 60 * 60 * 1000, // 1 day
+      path: "/",
+    });
 
     res.status(201).json({
       message: "User created successfully",
+      token, // Include token in response for localStorage
       user: {
         id: user._id,
         username: user.username,
@@ -83,10 +90,17 @@ async function login(req, res) {
       { expiresIn: "1d" },
     );
 
-    res.cookie("token", token);
+    res.cookie("token", token, {
+      httpOnly: true,
+      secure: false, // Set to true in production with HTTPS
+      sameSite: "none", // Required for cross-origin cookies
+      maxAge: 24 * 60 * 60 * 1000, // 1 day
+      path: "/",
+    });
 
     res.status(200).json({
       message: "User logged in successfully",
+      token, // Include token in response for localStorage
       user: {
         id: user._id,
         username: user.username,
@@ -105,7 +119,12 @@ async function logout(req, res) {
   if (token) {
     await tokenBlacklistModel.create({ token });
   }
-  res.clearCookie("token");
+  res.clearCookie("token", {
+    httpOnly: true,
+    secure: false,
+    sameSite: "none",
+    path: "/",
+  });
 
   res.status(200).json({ message: "User logged out successfully" });
 }

@@ -9,7 +9,6 @@ import {
   Card,
   CardContent,
   CardDescription,
-  CardHeader,
   CardTitle,
 } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
@@ -196,7 +195,7 @@ export default function ReportsPage() {
                             </AlertDialogDescription>
                           </AlertDialogHeader>
                           <AlertDialogFooter>
-                            <AlertDialogCancel className="bg-white/5 border-white/10 text-white hover:bg-white/10">
+                            <AlertDialogCancel className="bg-green-500 border-white/10 text-white hover:bg-white/10">
                               Cancel
                             </AlertDialogCancel>
                             <AlertDialogAction
