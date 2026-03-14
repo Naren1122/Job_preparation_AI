@@ -292,6 +292,22 @@ This project is licensed under the MIT License.
 
 ---
 
+## 📸 Screenshots
+
+![Landing Page](./docs/homepage.png)
+![Dashboard](./docs/Dashboard.png)
+![Auth Pages](./docs/auth%20page.png)
+
+---
+
+## 🎬 Demo Video
+
+Watch the full demo on YouTube: [AI Prep Demo](https://youtu.be/Trv46aEX8RQ)
+
+Or open the interactive demo page: [View Demo](./docs/demo.html)
+
+---
+
 ## 👤 Author
 
 Developed with ❤️ using modern web technologies.

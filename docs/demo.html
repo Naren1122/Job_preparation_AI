@@ -1,0 +1,178 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>AI Prep - Demo</title>
+    <style>
+      * {
+        margin: 0;
+        padding: 0;
+        box-sizing: border-box;
+      }
+
+      body {
+        font-family:
+          -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Oxygen, Ubuntu,
+          sans-serif;
+        background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+        min-height: 100vh;
+        padding: 40px 20px;
+      }
+
+      .container {
+        max-width: 1200px;
+        margin: 0 auto;
+      }
+
+      h1 {
+        text-align: center;
+        color: white;
+        font-size: 2.5rem;
+        margin-bottom: 10px;
+        text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.2);
+      }
+
+      .subtitle {
+        text-align: center;
+        color: rgba(255, 255, 255, 0.9);
+        font-size: 1.1rem;
+        margin-bottom: 40px;
+      }
+
+      .video-section {
+        background: white;
+        border-radius: 16px;
+        padding: 24px;
+        margin-bottom: 40px;
+        box-shadow: 0 10px 40px rgba(0, 0, 0, 0.2);
+      }
+
+      .video-section h2 {
+        color: #333;
+        margin-bottom: 20px;
+        font-size: 1.5rem;
+      }
+
+      .video-container {
+        position: relative;
+        width: 100%;
+        padding-bottom: 56.25%; /* 16:9 aspect ratio */
+        border-radius: 12px;
+        overflow: hidden;
+      }
+
+      .video-container iframe {
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        border: none;
+      }
+
+      .screenshots-section {
+        background: white;
+        border-radius: 16px;
+        padding: 24px;
+        box-shadow: 0 10px 40px rgba(0, 0, 0, 0.2);
+      }
+
+      .screenshots-section h2 {
+        color: #333;
+        margin-bottom: 20px;
+        font-size: 1.5rem;
+      }
+
+      .screenshots-grid {
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+        gap: 24px;
+      }
+
+      .screenshot-card {
+        background: #f8f9fa;
+        border-radius: 12px;
+        overflow: hidden;
+        transition:
+          transform 0.3s ease,
+          box-shadow 0.3s ease;
+      }
+
+      .screenshot-card:hover {
+        transform: translateY(-5px);
+        box-shadow: 0 8px 25px rgba(0, 0, 0, 0.15);
+      }
+
+      .screenshot-card img {
+        width: 100%;
+        height: auto;
+        display: block;
+      }
+
+      .screenshot-card h3 {
+        padding: 16px;
+        color: #555;
+        font-size: 1rem;
+        text-align: center;
+        background: white;
+      }
+
+      @media (max-width: 768px) {
+        h1 {
+          font-size: 1.8rem;
+        }
+
+        .screenshots-grid {
+          grid-template-columns: 1fr;
+        }
+      }
+    </style>
+  </head>
+  <body>
+    <div class="container">
+      <h1>🤖 AI Prep - Demo</h1>
+      <p class="subtitle">AI-Powered Job Preparation Platform</p>
+
+      <!-- Video Section -->
+      <div class="video-section">
+        <h2>📹 Demo Video</h2>
+        <div class="video-container">
+          <iframe
+            src="https://www.youtube.com/embed/Trv46aEX8RQ?si=uD-P13vmEoEthT7X"
+            title="AI Prep Demo"
+            allow="
+              accelerometer;
+              autoplay;
+              clipboard-write;
+              encrypted-media;
+              gyroscope;
+              picture-in-picture;
+            "
+            allowfullscreen
+          >
+          </iframe>
+        </div>
+      </div>
+
+      <!-- Screenshots Section -->
+      <div class="screenshots-section">
+        <h2>📸 Screenshots</h2>
+        <div class="screenshots-grid">
+          <div class="screenshot-card">
+            <img src="homepage.png" alt="Homepage" />
+            <h3>🏠 Homepage</h3>
+          </div>
+          <div class="screenshot-card">
+            <img src="Dashboard.png" alt="Dashboard" />
+            <h3>📊 Dashboard</h3>
+          </div>
+          <div class="screenshot-card">
+            <img src="auth page.png" alt="Auth Pages" />
+            <h3>🔐 Authentication</h3>
+          </div>
+        </div>
+      </div>
+    </div>
+  </body>
+</html>
