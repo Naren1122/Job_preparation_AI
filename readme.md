@@ -4,6 +4,11 @@ A production-ready Gen AI application designed to help users bridge the gap betw
 
 ---
 
+## 🎬 Demo Video
+
+Watch the full demo on YouTube: [AI Prep Demo](https://youtu.be/Trv46aEX8RQ)..................................
+-----
+
 ## 📸 Screenshots
 
 ![Landing Page](./docs/homepage.png)
@@ -12,11 +17,6 @@ A production-ready Gen AI application designed to help users bridge the gap betw
 
 ---
 
-## 🎬 Demo Video
-
-Watch the full demo on YouTube: [AI Prep Demo](https://youtu.be/Trv46aEX8RQ)..................................
-
----
 
 ## 🚀 Key Features
 
