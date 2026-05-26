@@ -5,9 +5,10 @@ import cookieParser from "cookie-parser";
 import cors from "cors";
 
 const app = express(); // Create an Express application
+app.get("/api/health", (req, res) => res.json({ status: "ok" }));
 app.use(
   cors({
-    origin: "http://localhost:3000",
+    origin: process.env.CLIENT_URL || "http://localhost:3000",
     credentials: true,
   }),
 );

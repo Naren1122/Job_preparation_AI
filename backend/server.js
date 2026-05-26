@@ -2,7 +2,9 @@ import app from "./src/app.js";
 import connectDB from "./src/config/db.js";
 import dotenv from "dotenv";
 
-dotenv.config({ path: "./src/.env" });
+if (process.env.NODE_ENV !== "production") {
+  dotenv.config({ path: "./src/.env" });
+}
 
 const port = process.env.PORT || 5001;
 
