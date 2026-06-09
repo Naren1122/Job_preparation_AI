@@ -42,6 +42,7 @@ async function register(req, res) {
       httpOnly: true,
       secure: isProduction,
       sameSite: isProduction ? "none" : "lax",
+      domain: isProduction ? process.env.CLIENT_DOMAIN : undefined,
       maxAge: 24 * 60 * 60 * 1000,
       path: "/",
     });
@@ -96,6 +97,7 @@ async function login(req, res) {
       httpOnly: true,
       secure: isProduction,
       sameSite: isProduction ? "none" : "lax",
+      domain: isProduction ? process.env.CLIENT_DOMAIN : undefined,
       maxAge: 24 * 60 * 60 * 1000,
       path: "/",
     });
@@ -127,6 +129,7 @@ async function logout(req, res) {
     httpOnly: true,
     secure: isProduction,
     sameSite: isProduction ? "none" : "lax",
+    domain: isProduction ? process.env.CLIENT_DOMAIN : undefined,
     path: "/",
   });
 
