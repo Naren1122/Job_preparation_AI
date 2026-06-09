@@ -1,12 +1,21 @@
 import mongoose from "mongoose";
 
-async function connectDB() {
-  try {
-    await mongoose.connect(process.env.MONGO_URI);
-    console.log("Connected to DB");
-  } catch (error) {
-    console.log(error);
-  }
-}
+export default async function connectDB() {
+  const uri = process.env.MONGODB_URI || process.env.MONGODB_URL;
 
-export default connectDB;
+  if (!uri) {
+    throw new Error("MongoDB URI not found in environment variables");
+  }
+
+  if (mongoose.connection.readyState === 1) {
+    return mongoose.connection;
+  }
+
+  await mongoose.connect(uri, {
+    serverSelectionTimeoutMS: 10000,
+    connectTimeoutMS: 10000,
+    maxPoolSize: 10,
+  });
+
+  return mongoose.connection;
+}
